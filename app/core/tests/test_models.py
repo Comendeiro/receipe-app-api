@@ -14,3 +14,10 @@ class ModelTests(TestCase):
         )
         self.assertEqual(user.email, email)
         self.assertTrue(user.check_password(password))
+
+    def test_new_user_email_normalized(self):
+        """check that new emails are normalized"""
+        email = 'test@GMail.com'
+        user = get_user_model().objects.create_user(email,'1234')
+
+        self.assertEqual(user.email, email.lower())
